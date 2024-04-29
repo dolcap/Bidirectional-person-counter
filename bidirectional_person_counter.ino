@@ -1,3 +1,4 @@
+
 #include <TM1637Display.h> //included library for TM1637 Display
  
 //global variables
@@ -61,7 +62,7 @@ double sensor1_distance, sensor2_distance;
  
 void loop() {
  
-  display.showNumberDec(counter,false,3,1); //rezultat se ispisuje na led prikazivaču
+  display.showNumberDec(counter,false,3,1); //the result is printed on the led display
  
   sensor1_distance = Sensor1();
   sensor2_distance = Sensor2();
@@ -69,22 +70,21 @@ void loop() {
   //diff = sensor1_distance - sensor2_distance;
  
   if(sensor1_distance){
-    if (sensor1_distance <= 30) //ako je distanca u intervalu [0,70] 
+    if (sensor1_distance <= 30) //if the distance is less than or equal to 30 cm 
     {
         unsigned long curr_time = millis();      
         bool flag = false;
-        while(millis() - curr_time < 3000){  //dok ne prođe 3 sekunde
- 
+        while(millis() - curr_time < 3000){  //until 3 seconds have passed
           sensor2_distance = Sensor2();
  
           if(sensor2_distance) 
           {
-          if (sensor2_distance <= 30) //ako je distanca u intervalu [0,70]
+          if (sensor2_distance <= 30) //if the distance is less than or equal to 30 cm
         { 
-                  counter++;    //poveća se za 1
+                  counter++;    //increase by 1 every time
                   flag = true;
-                  display.showNumberDec(counter,false,3,1); //rezultat se ispisuje na led prikazivaču
-                  delay(1000); //čekaj 2s*/
+                  display.showNumberDec(counter,false,3,1); 
+                  delay(1000); 
               }
       
             if (flag == true)
@@ -99,18 +99,18 @@ void loop() {
       { 
           unsigned long curr_time = millis();
           bool flag = false;
-          while(millis() - curr_time < 3000){  //dok ne prođe 3 sekunda
+          while(millis() - curr_time < 3000){  //until 3 seconds have passed
  
             sensor1_distance = Sensor1();
         if(sensor1_distance)
         {
-              if( sensor1_distance <= 30 ) //ako je udaljenost manja od 70 cm
+              if( sensor1_distance <= 30 ) //if the distance is less than or equal to 30 cm
               {      
-                  counter--; //smanji za 1
-                  if (counter<0)counter=0; //Ako ode u minus vrati ga na nulu
+                  counter--; //decrease by 1 every time
+                  if (counter<0)counter=0; //if it goes negative, return it to zero
                   flag = true;
-                  display.showNumberDec(counter,false,3,1); //rezultat se ispisuje na led prikazivaču
-                  delay(1000); //Pricekaj da se osoba makne iz dometa
+                  display.showNumberDec(counter,false,3,1); 
+                  delay(1000); //wait for the person to move out of range
               }
               if (flag == true)
                   return;
